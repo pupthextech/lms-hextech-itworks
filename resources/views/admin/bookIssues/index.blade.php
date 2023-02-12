@@ -112,25 +112,7 @@
         "responsive": true, 
         "lengthChange": false, 
         "autoWidth": false,
-        // dom: 'Bfrtip',
-        buttons: {
-            dom: {
-                button: {
-                    className: 'btn btn-primary btn-rounded'
-                }
-            },
-            buttons: [
-                {
-                    text: 'Issue book',
-                    action: function ( e, dt, node, config ) {
-                        window.location = '{{ URL::to('admin/book_issues/issue') }}';
-                    },
-                }
-            ],
-        }
     });
-
-    table.buttons().container().appendTo('#bookIssueTable_wrapper .col-md-6:eq(0)' );
 
 </script>
 @endsection

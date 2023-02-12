@@ -34,6 +34,7 @@
                     <th width="15%">Issue Date</th>
                     <th width="15%">Date to be Returned</th>
                     <th width="15%">Date Returned</th>
+                    <th width="15%">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +45,11 @@
                         <td>{{ $issues->date_issued }}</td>
                         <td>{{ $issues->expected_return_date }}</td>
                         <td>{{ $issues->return_date }}</td>
+                        <td>
+                            @if(is_null($issues->return_date))
+                            <button class="btn btn-primary btn-sm" data-url="{{ URL::to('book_issues/return/'.$issues->id) }}" id="returnBtn">Return</button>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -57,12 +63,43 @@
     <script src="{{ URL::asset('assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ URL::asset('assets/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ URL::asset('assets/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
-<script>
-    var table = $("#bookTable").DataTable({
-        "responsive": true, 
-        "autoWidth": false,
-    });
-</script>
+        
+    <script>
+        var table = $("#bookTable").DataTable({
+            "responsive": true, 
+            "autoWidth": false,
+        });
+    </script>
+
+    @if ($message = Session::get('success'))
+        <script>
+            Swal.fire(
+                'Success!',
+                '{{ $message }}!',
+                'success'
+            )
+        </script>
+    @endif
+
+    <script>
+        $('#returnBtn').on('click', function() {
+            var url = $(this).attr('data-url');
+            Swal.fire({
+                title: 'Do you want to return the book?',
+                icon: 'question',
+                showDenyButton: true,
+                confirmButtonText: 'Yes',
+                denyButtonText: `No`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                window.location.replace(url);
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+            })
+        });
+    </script>
 @endsection

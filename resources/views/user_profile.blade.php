@@ -1,21 +1,25 @@
-@extends('layout')
+@extends($layout)
 
 @section('styles')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css">
 @endsection
 
 @section('content-header')
-    <div class="container-fluid">
+    @if(Auth::user()->role == 'admin')
+    <div class="container-fluid"> 
+    @else
+    <div class="container">
+    @endif
         <div class="row mb-2">
-        <div class="col-sm-6">
-            <h1>User Profile</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ URL::to('dashboard') }}">Dashboard</a></li>
-            <li class="breadcrumb-item active">User Profile</li>
-            </ol>
-        </div>
+            <div class="col-sm-6">
+                <h1>User Profile</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{{ URL::to('dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item active">User Profile</li>
+                </ol>
+            </div>
         </div>
     </div><!-- /.container-fluid -->
 @endsection
@@ -40,7 +44,7 @@
 
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                            <b>Borrowed Books</b> <a class="float-right">1,322</a>
+                            <b>Borrowed Books</b> <a class="float-right">{{ $issueCounts }}</a>
                         </li>
                     </ul>
                 </div>
@@ -73,35 +77,35 @@
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Student Number</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-border" id="exampleInputBorder" placeholder="2018-00001-TG-0" readonly value="{{ Auth::user()->stud_number }}" name="stud_number">
+                                        <input type="text" class="form-control form-control-border" placeholder="2018-00001-TG-0" readonly value="{{ Auth::user()->stud_number }}" name="stud_number">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">First Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-border @error('first_name') is-invalid @enderror" id="exampleInputBorder" placeholder="Juan" value="{{ Auth::user()->first_name }}" name="first_name">
+                                        <input type="text" class="form-control form-control-border @error('first_name') is-invalid @enderror" placeholder="Juan" value="{{ Auth::user()->first_name }}" name="first_name">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Last Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-border @error('last_name') is-invalid @enderror" id="exampleInputBorder" placeholder="Dela Cruz" value="{{ Auth::user()->last_name }}" name="last_name">
+                                        <input type="text" class="form-control form-control-border @error('last_name') is-invalid @enderror" placeholder="Dela Cruz" value="{{ Auth::user()->last_name }}" name="last_name">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">E-Mail</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control form-control-border @error('email') is-invalid @enderror" id="exampleInputBorder" placeholder="juandelacruz@gmail.com" value="{{ Auth::user()->email }}" name="email">
+                                        <input type="text" class="form-control form-control-border @error('email') is-invalid @enderror" placeholder="juandelacruz@gmail.com" value="{{ Auth::user()->email }}" name="email">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-4">
-                                        <input type="password" class="form-control form-control-border @error('password') is-invalid @enderror" id="exampleInputBorder" placeholder="************" name="password">
+                                        <input type="password" class="form-control form-control-border @error('password') is-invalid @enderror" placeholder="************" name="password">
                                     </div>
                                     <label for="inputEmail3" class="offset-sm-1 col-sm-2 col-form-label">Confirm password</label>
                                     <div class="col-sm-3">
-                                        <input type="password" class="form-control form-control-border @error('confpassword') is-invalid @enderror" id="exampleInputBorder" placeholder="************" name="confpassword">
+                                        <input type="password" class="form-control form-control-border @error('confpassword') is-invalid @enderror" placeholder="************" name="confpassword">
                                     </div>
                                 </div>
                                 <div class="form-group row">

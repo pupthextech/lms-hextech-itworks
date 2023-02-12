@@ -54,9 +54,28 @@ class BookIssues extends Controller
         return view('admin.bookIssues.issue', $data);
     }
 
-    public function placeIssue(Request $request) {
-        $this->verifyRole(Auth::user()->role);
+    // public function placeIssue(Request $request) {
+    //     $this->verifyRole(Auth::user()->role);
         
+    //     $book = BooksModel::where('book_isbn', $request->book_isbn)->first();
+    //     $book->decrement('book_copy', 1);
+
+    //     if($book->book_copy < 1) {
+    //         $book->status = 'Disabled';
+    //         $book->save();
+    //     }
+
+    //     $data = [
+    //         'book_isbn' => $request->book_isbn,
+    //         'student_number' => $request->student_number,
+    //         'expected_return_date' => Carbon::now()->addDays(7),
+    //     ];
+
+    //     BookIssuesModel::create($data);
+    //     return redirect('admin/book_issues')->withSuccess('Placed issue successfully!');
+    // }
+
+    public function placeIssue(Request $request) {        
         $book = BooksModel::where('book_isbn', $request->book_isbn)->first();
         $book->decrement('book_copy', 1);
 
@@ -67,17 +86,15 @@ class BookIssues extends Controller
 
         $data = [
             'book_isbn' => $request->book_isbn,
-            'student_number' => $request->student_number,
+            'student_number' => Auth::user()->stud_number,
             'expected_return_date' => Carbon::now()->addDays(7),
         ];
 
         BookIssuesModel::create($data);
-        return redirect('admin/book_issues')->withSuccess('Placed issue successfully!');
+        return redirect('booklist')->withSuccess('Placed issue successfully!');
     }
 
-    public function returnBook($id) {
-        $this->verifyRole(Auth::user()->role);
-        
+    public function returnBook($id) {        
         // get issued book data
         $issued = BookIssuesModel::find($id); 
 
@@ -96,6 +113,6 @@ class BookIssues extends Controller
         $issued->book_issue_status = 'Returned';
         $issued->save();
 
-        return redirect('admin/book_issues')->withSuccess('Book returned successfully!');
+        return redirect('issued_books')->withSuccess('Book returned successfully!');
     }
 }

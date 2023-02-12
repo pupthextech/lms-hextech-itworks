@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-            <a href="../../index3.html" class="navbar-brand">
+            <a href="{{ URL::to('dashboard') }}" class="navbar-brand">
                 <img src="{{ URL::asset('assets/adminlte/dist/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Library MS</span>
             </a>
@@ -37,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Left navbar links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href="index3.html" class="nav-link @if($active_page == 'dashboard') active @endif">Dashboard</a>
+                        <a href="{{ URL::to('dashboard') }}" class="nav-link @if($active_page == 'dashboard') active @endif">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ URL::to('issued_books') }}" class="nav-link @if($active_page == 'issuedBooks') active @endif">Issued Books</a>
@@ -56,7 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     {{ Auth::user()->stud_number }}<i class="fas fa-user ml-2"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
+                    <a href="{{ URL::to('profile/'.Auth::user()->stud_number) }}" class="dropdown-item">
                         <i class="fas fa-user mr-2"></i> Profile
                     </a>
                     <a href="{{ URL::to('logout') }}" class="dropdown-item">

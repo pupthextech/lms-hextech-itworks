@@ -33,8 +33,9 @@
                     <th>Book Name</th>
                     <th>Author</th>
                     <th>Category</th>
-                    <th>Available Copies</th>
+                    <th>Copies</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,6 +53,13 @@
                                 'badge-danger' => $book->status == 'Disabled',
                             ])>{{ $book->status}}</span>
                         </td>
+                        <td>
+                            <form action="{{ URL::to('book_issues/placeIssue') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="book_isbn" value="{{ $book->book_isbn }}">
+                                <button type="button" class="btn btn-primary btn-sm bor">Borrow</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -65,12 +73,42 @@
     <script src="{{ URL::asset('assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ URL::asset('assets/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ URL::asset('assets/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-<script>
-    var table = $("#bookTable").DataTable({
-        "responsive": true, 
-        "autoWidth": false,
-    });
-</script>
+    <script>
+        var table = $("#bookTable").DataTable({
+            "responsive": true, 
+            "autoWidth": false,
+        });
+    </script>
+
+    @if ($message = Session::get('success'))
+        <script>
+            Swal.fire(
+                'Success!',
+                '{{ $message }}!',
+                'success'
+            )
+        </script>
+    @endif
+    
+    {{-- ask user to confirm borrowing --}}
+    <script>
+        $('.bor').on('click', function() {
+            Swal.fire({
+                title: 'Borrow book?',
+                icon: 'question',
+                showDenyButton: true,
+                confirmButtonText: 'Yes',
+                denyButtonText: `No`,
+            }).then((result) => {
+            if (result.isConfirmed) {
+                var form = $(this).parents('form:first');
+                form.submit();
+            } else if (result.isDenied) {
+                Swal.fire('Book not borrowed', '', 'info')
+            }
+            })
+        })
+    </script>
 @endsection

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use Session;
+use File;
+use App\Models\BookIssuesModel;
 
 class UserProfile extends Controller
 {
@@ -14,7 +16,14 @@ class UserProfile extends Controller
     }
 
     public function index() {
-        $data['active_page'] = 'User Profile';
+        $data['issueCounts'] = BookIssuesModel::where('student_number', Auth::user()->stud_number)->count();
+
+        $data['active_page'] = 'userProfile';
+        $data['title'] = 'User Profile';
+        if(Auth::user()->role == 'admin')
+            $data['layout'] = 'layout';
+        else 
+            $data['layout'] = 'student.layout';
         return view('user_profile', $data);
     }
 
@@ -54,8 +63,8 @@ class UserProfile extends Controller
                 $request->image->move(public_path('uploads/profile'), $fileName);
                 $user->image = $fileName;
             }
-
-            dd('has image upload');
+            $user->save();
+            return back()->with('success', '<strong>Success!</strong> Your profile is now updated.');
         } else {
             // if user profile update also without image
             $user->first_name = $request->first_name;

@@ -11,27 +11,48 @@
 @endsection
 
 @section('content')
-<!-- Default box -->
-<div class="card">
-  <div class="card-header">
-    <h3 class="card-title">Title</h3>
-
-    <div class="card-tools">
-      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-        <i class="fas fa-minus"></i>
-      </button>
-      <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-        <i class="fas fa-times"></i>
-      </button>
+<div class="row">
+    <div class="col">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ $books }}</h3>
+                <p>Available Books</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-book"></i>
+            </div>
+                <a href="{{ URL::to('booklist') }}" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
     </div>
-  </div>
-  <div class="card-body">
-    Start creating your amazing application!
-  </div>
-  <!-- /.card-body -->
-  <div class="card-footer">
-    Footer
-  </div>
-  <!-- /.card-footer-->
+    <div class="col">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ $issued_books }}</h3>
+                <p>Borrowed books</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-id-card"></i>
+            </div>
+                <a href="{{ URL::to('issued_books' )}}" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ $to_return }}</h3>
+                <p>Books to return</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-undo-alt"></i>
+            </div>
+                <a href="{{ URL::to('issued_books' )}}" class="small-box-footer">
+                More info <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
 </div>
 @endsection

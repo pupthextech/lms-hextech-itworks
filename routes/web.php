@@ -46,9 +46,9 @@ Route::controller(Users::class)->group(function() {
 Route::controller(BookIssues::class)->group(function() {
     Route::get('admin/book_issues', 'index');
     Route::get('admin/book_issues/issue', 'issue');
-    Route::post('admin/book_issues/placeIssue', 'placeIssue');
+    Route::post('book_issues/placeIssue', 'placeIssue');
     Route::get('admin/book_issues/details/{id}', 'details');
-    Route::get('admin/book_issues/return/{id}', 'returnBook');
+    Route::get('book_issues/return/{id}', 'returnBook');
 });
 
 Route::controller(Students::class)->group(function() {
