@@ -37,7 +37,6 @@
                     <th>Contact No.</th>
                     <th>Address</th>
                     <th>Status</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,9 +55,6 @@
                             'badge-success' => $user->status == 'Enable',
                             'badge-danger' => $user->status == 'Disabled',
                         ])>{{ $user->status}}</span>
-                    </td>
-    				<td>
-                        <button type="button" name="delete_button" class="btn btn-danger btn-sm">Change status</button>
                     </td>
     			</tr>
                 @endforeach

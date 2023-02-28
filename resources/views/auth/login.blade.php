@@ -19,7 +19,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-            <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+                <img src="{{ URL::asset('assets/adminlte/dist/img/adminlte.png') }}" alt="" class="img-fluid">
             </div>
             <div class="card-body">
             <p class="login-box-msg">Sign in to start your session</p>

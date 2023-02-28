@@ -42,8 +42,9 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ URL::to('dashboard') }}" class="brand-link">
-            <img src="{{ URL::asset('assets/adminlte/dist/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">Library MS</span>
+            {{-- <img src="{{ URL::asset('assets/adminlte/dist/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Library MS</span> --}}
+                <img src="{{ URL::asset('assets/adminlte/dist/img/adminltewhite.png') }}" alt="" class="img-fluid">
             </a>
 
             <!-- Sidebar -->
